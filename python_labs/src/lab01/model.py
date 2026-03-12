@@ -1,12 +1,16 @@
 class Customer:
     shop_name = "PC Parts Shop"
     def __init__(self, name: str, email: str, wallet_balance: float, bonus_points: int):
+        self._validate_name(name)
+        self._validate_email(email)
+        self._validate_wallet(wallet_balance)
+        self._validate_bonus(bonus_points)
         self._name = name
         self._email = email
         self._wallet_balance = wallet_balance
         self._bonus_points = bonus_points
 
-        self._not_banned = True #state
+        self._banned = False #state
 
  #validators  
 
@@ -16,7 +20,7 @@ class Customer:
         if len(value.strip()) < 2:
             raise ValueError("имя слишком короткое")
 
-    def _validate_email(self, email):
+    def _validate_email(self, value):
         if not isinstance(value, str):
             raise TypeError("email не строка")
         if not "@" in value:
@@ -33,8 +37,8 @@ class Customer:
     def _validate_bonus(self, value):
         if not isinstance(value, (float, int)):
             raise TypeError("количество бонусов не float/int")
-        if not 100 > value > 0:
-            raise ValueError("нельзя начислить более 100 бонусов за покупку")
+        if not value > 0:
+            raise ValueError("бонусы не могут быть отрицательными")
 
     def _validate_pos_values(self, value):
         if not isinstance(value, (float, int)):
@@ -104,8 +108,8 @@ class Customer:
 
 #business methods
 
-    def balance_increase(self, amount, use_points = 0):
-        if self._not_banned:
+    def balance_increase(self, amount):
+        if not self._banned:
             self._validate_pos_values(amount)
             self._wallet_balance += amount
         else:
@@ -114,8 +118,8 @@ class Customer:
         self._validate_pos_values(amount)
         self._wallet_balance += amount
 
-    def make_purchase(self, price):
-        if self._not_banned:
+    def make_purchase(self, price, use_points):
+        if not self._banned:
             self._validate_pos_values(price)
             self._validate_pos_values(use_points)
         else:
@@ -134,10 +138,9 @@ class Customer:
 #state change
 
     def ban(self):
-        if self._not_banned:
-            self._not_banned = False
-            print("аккаунт перманентно заблокирован")
-        else:
-            print("аккаунт уже заблокирован")
+        self._banned = True
+    
+    def unban(self):
+        self._banned = False
     
     
