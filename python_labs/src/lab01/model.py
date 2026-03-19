@@ -1,50 +1,17 @@
+from validators import _validate_bonus, _validate_email, _validate_pos_values, _validate_wallet, _validate_name
 class Customer:
     shop_name = "PC Parts Shop"
     def __init__(self, name: str, email: str, wallet_balance: float, bonus_points: int):
-        self._validate_name(name)
-        self._validate_email(email)
-        self._validate_wallet(wallet_balance)
-        self._validate_bonus(bonus_points)
+        _validate_name(self, name)
+        _validate_email(self, email)
+        _validate_wallet(self, wallet_balance)
+        _validate_bonus(self, bonus_points)
         self._name = name
         self._email = email
         self._wallet_balance = wallet_balance
         self._bonus_points = bonus_points
 
         self._banned = False #state
-
- #validators  
-
-    def _validate_name(self, value):
-        if not isinstance(value, str):
-            raise TypeError("имя не строка")
-        if len(value.strip()) < 2:
-            raise ValueError("имя слишком короткое")
-
-    def _validate_email(self, value):
-        if not isinstance(value, str):
-            raise TypeError("email не строка")
-        if not "@" in value:
-            raise ValueError("нет адреса домена")
-        if len(value.strip()) < 2:
-            raise ValueError("слишком короткий email")
-
-    def _validate_wallet(self, value):
-        if not isinstance(value, (float, int)):
-            raise TypeError("сумма в кошельке не float/int")
-        if value < 0:
-            raise ValueError("баланс не может быть отрицательным")
-
-    def _validate_bonus(self, value):
-        if not isinstance(value, (float, int)):
-            raise TypeError("количество бонусов не float/int")
-        if not value > 0:
-            raise ValueError("бонусы не могут быть отрицательными")
-
-    def _validate_pos_values(self, value):
-        if not isinstance(value, (float, int)):
-            raise TypeError("не float/int")
-        if value < 0:
-            raise ValueError("не может быть отрицаьельным значением")
 
 #properties
 
@@ -68,22 +35,22 @@ class Customer:
 
     @name.setter
     def name(self, value):
-        self._validate_name(value)
-        self.name = value
+        _validate_name(value)
+        self._name = value
 
     @email.setter
     def email(self, value):
-        self._validate_email(value)
-        self.email = value
+        _validate_email(value)
+        self._email = value
 
     @wallet_balance.setter
-    def balance(self, value):
-        self._validate_wallet(value)
+    def wallet_balance(self, value):
+        _validate_wallet(value)
         self._wallet_balance = value
 
     @bonus_points.setter
     def bonus_points(self, value):
-        self._validate_bonus(value)
+        _validate_bonus(value)
         self._bonus_points = value
 
 #dunder methods
@@ -98,7 +65,7 @@ class Customer:
     def __repr__(self):
         return (
             f"Client('{self._name}', "
-            f"{self._email}, "
+            f"'{self._email}', "
             f"{self._wallet_balance}, "
             f"{self._bonus_points})"
         )
@@ -110,30 +77,27 @@ class Customer:
 
     def balance_increase(self, amount):
         if not self._banned:
-            self._validate_pos_values(amount)
+            _validate_pos_values(self, amount)
             self._wallet_balance += amount
         else:
             print("баланс данного аккаунта нельзя пополнить")
 
-        self._validate_pos_values(amount)
+        _validate_pos_values(self, amount)
         self._wallet_balance += amount
 
     def make_purchase(self, price, use_points):
-        if not self._banned:
-            self._validate_pos_values(price)
-            self._validate_pos_values(use_points)
-        else:
+        if self._banned:
             print("с данного аккаунта нельзя совершать покупки")
-
-        self._validate_pos_values(price)
-        self._validate_pos_values(use_points)
-
-        if self._wallet_balance + use_points >= price:
-            self._wallet_balance -= price - use_points
-            self._bonus_points -= use_points
-            self._bonus_points += price * 0.05 
         else:
-            print("недостаточно средств")
+            _validate_pos_values(self, price)
+            _validate_pos_values(self, use_points)
+
+            if self._wallet_balance + use_points >= price and self._bonus_points >= use_points :
+                self._wallet_balance -= price - use_points
+                self._bonus_points -= use_points
+                self._bonus_points += price * 0.05 
+            else:
+                print("недостаточно средств")
 
 #state change
 
