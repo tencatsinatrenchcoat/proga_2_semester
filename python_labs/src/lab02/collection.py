@@ -29,8 +29,8 @@ class Clientbase:
         for item in self._items:
             if item.email == email:
                 return item
-        return "! не найдено"
-    
+        return None
+
     def __len__(self):
         return len(self._items)
     
@@ -50,13 +50,13 @@ class Clientbase:
         except IndexError:
             raise IndexError("! такого индекса нет")
 
-    def sort_by_email(self, email):
-        self._items.sort(key = lambda customer: customer_email)
+    def sort_by_email(self):
+        self._items.sort(key = lambda customer: customer.email)
         
     def get_banned(self):
         banned_collection = []
         for customer in self._items:
-            if customer._banned is True:
+            if customer.banned:
                 banned_collection.append(customer)
-        return banned_collection
+        return Clientbase(banned_collection)
 
