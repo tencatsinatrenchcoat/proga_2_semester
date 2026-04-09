@@ -31,6 +31,10 @@ class Customer:
     def bonus_points(self):
         return self._bonus_points
 
+    @property
+    def banned(self):
+        return self._banned
+
 #setters
 
     @name.setter

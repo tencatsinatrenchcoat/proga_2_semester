@@ -51,5 +51,12 @@ class Clientbase:
             raise IndexError("! такого индекса нет")
 
     def sort_by_email(self, email):
-        return sorted(self._items)
+        self._items.sort(key = lambda customer: customer_email)
+        
+    def get_banned(self):
+        banned_collection = []
+        for customer in self._items:
+            if customer._banned is True:
+                banned_collection.append(customer)
+        return banned_collection
 

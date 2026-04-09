@@ -24,6 +24,7 @@ print()
 c1 = Customer("Ada Lovelace", "ada@mail.uk", 100000, 100)
 c2 = Customer("John Von Neumann", "john@mail.usa", 20000, 250)
 c3 = Customer("Apple Inc.", "apple@mail.usa", 999999999, 0)
+c3.ban()
 
 print()
 userbase = Clientbase()
