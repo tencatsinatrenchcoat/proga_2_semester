@@ -1,10 +1,11 @@
 from model import Customer
 from collection import Clientbase
 
-print("создадим трех клиентов, третий забанен")
+print("создадим 4 клиентов, третий забанен")
 c1 = Customer("Ada Lovelace", "ada@mail.uk", 100000, 100)
 c2 = Customer("John Von Neumann", "john@mail.usa", 20000, 250)
 c3 = Customer("Apple Inc.", "apple@mail.usa", 999999999, 0)
+c4 = Customer("Samsung Inc.", "samsung@mail.sk", 999956799, 0)
 c3.ban()
 
 print("создадим коллекцию")
@@ -14,6 +15,7 @@ print("добавим пользователей")
 userbase.add(c1)
 userbase.add(c2)
 userbase.add(c3)
+userbase.add(c4)
 
 print(userbase.get_all())
 
@@ -34,9 +36,9 @@ for item in userbase:
     print(item)
 
 print("попробуем добавить дубликат")
-c4 = Customer("ANot da Lovelace", "ada@mail.uk", 100000, 100)
+c5 = Customer("ANot da Lovelace", "ada@mail.uk", 100000, 100)
 try: 
-    userbase.add(c4) 
+    userbase.add(c5) 
 except ValueError:
     print("НЕЛЬЗЯ ДОБАВЛЯТЬ ДУБЛИКАТЫ")
 
@@ -50,8 +52,8 @@ except IndexError:
     print("ТАКОГО ИНДЕКСА НЕТ")
 
 print("сортировка")
-sorted_clients = userbase.sort_by_email()
-print(f" отсортированные клиенты: {sorted_clients}")
+userbase.sort_by_email()
+print(f" отсортированные клиенты: {userbase.get_all()}")
 
 print("фильтр по бану")
 banned_clients = userbase.get_banned()
