@@ -4,7 +4,7 @@ from interfaces import Delivery_avaliable
 
 
 class CorporateCustomer(Customer, Delivery_avaliable):
-    def __init__(self, name, email, wallet_balance, order_limit: int, warehouse_distance: {int, float}, bonus_points = 0, banned = False):
+    def __init__(self, name, email, wallet_balance, order_limit: int, warehouse_distance: int | float, bonus_points = 0, banned = False):
         _validate_pos_values(order_limit)
         _validate_pos_values(warehouse_distance)
         super().__init__(name, email, wallet_balance, bonus_points)
@@ -100,8 +100,8 @@ class HumanCustomer(Customer, Delivery_avaliable):
             f"НОмер телефона: {self._phone_number}\n"
             f"Способ доставки: {self._delivery_method}")
 
-    def pickup_code_generator(phone_number):
-        return phone_number[:4]
+    def pickup_code_generator(self):
+        return self._phone_number[4:]
             
     def calculate_delivery_price(self): #4
         if self._delivery_method == "самовывоз":
@@ -127,5 +127,5 @@ class HumanCustomer(Customer, Delivery_avaliable):
                 print("недостаточно средств")
 
     def display(self):
-        delivery = self._calculate_delivery_price()
+        delivery = self.calculate_delivery_price()
         return (f"Ваш баланс {self._wallet_balance} $, ваши баллы {self._bonus_points}, доставка бдует стоить {delivery} $")

@@ -27,3 +27,4 @@ items = [cc1, cc2, cc3]
 cl = Clientbase(items)
 
 print(cl.sort_by_delivery_price())
+print(cc1.to_string())
