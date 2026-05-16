@@ -94,4 +94,4 @@ class Clientbase:
         return Clientbase(avaliable_customers)
 
     def sort_by_delivery_price(self):
-        pass
+        return self._get_delivery_avaliable().get_all().sort(key = lambda customer: customer.calculate_delivery_price())
