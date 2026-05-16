@@ -1,8 +1,13 @@
 from abc import ABC, abstractmethod
 
 
-class Calculators(ABC):
-    pass
+class Printable(ABC):
+    @abstractmethod
+    def to_string(self):
+        pass
 
-class Printers(ABC):
-    pass
+class Deliverable(ABC):
+    @abstractmethod
+    def delivery_price_calculator(self):
+        pass
+

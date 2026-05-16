@@ -1,7 +1,9 @@
 from base import Customer
 from validators import _validate_pos_values, _validate_delivery, _validate_phone
+from interfaces import Deliverable
 
-class CorporateCustomer(Customer):
+
+class CorporateCustomer(Customer, Deliverable):
     def __init__(self, name, email, wallet_balance, order_limit: int, warehouse_distance: (int, float), bonus_points = 0, banned = False):
         _validate_pos_values(order_limit)
         _validate_pos_values(warehouse_distance)
@@ -64,7 +66,7 @@ class CorporateCustomer(Customer):
         return f"Ваш баланс {self._wallet_balance}, вы можете сделать заказ на сумму {self._order_limit}, доставка будет стоить {delivery}"
 
 
-class HumanCustomer(Customer):
+class HumanCustomer(Customer, Deliverable):
     def __init__(self, name, email, wallet_balance, bonus_points, phone_number: str, delivery_method: str, banned = False):
         _validate_phone(phone_number)
         _validate_delivery(delivery_method)

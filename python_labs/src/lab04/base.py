@@ -1,5 +1,8 @@
 from validators import _validate_bonus, _validate_email, _validate_pos_values, _validate_wallet, _validate_name
-class Customer:
+from interfaces import Printable
+
+
+class Customer(Printable):
     shop_name = "PC Parts Shop"
     def __init__(self, name: str, email: str, wallet_balance: float, bonus_points: int):
         _validate_name(name)
@@ -115,3 +118,7 @@ class Customer:
 
     def display(self):      
         pass
+#lab04
+
+    def to_string(self):
+        return self.__str__()
