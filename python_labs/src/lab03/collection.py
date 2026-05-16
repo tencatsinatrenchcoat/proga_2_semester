@@ -63,16 +63,16 @@ class Clientbase:
 
 #lab03
 
-def get_corpo_customer(self):
-    corpo_customers = []
-    for customer in self._items:
-        if isinstance(customer, CorporateCustomer):
-            corpo_customers.append(customer)
-    return Clientbase(corpo_customers)
+    def get_corpo_customer(self):
+        corpo_customers = []
+        for customer in self._items:
+            if isinstance(customer, CorporateCustomer):
+                corpo_customers.append(customer)
+        return Clientbase(corpo_customers)
 
-def get_human_customer(self):
-    human_customers = []
-    for customer in self._items:
-        if isinstance(customer, HumanCustomer):
-            human_customers.append(customer)
-    return Clientbase(human_customers)
+    def get_human_customer(self):
+        human_customers = []
+        for customer in self._items:
+            if isinstance(customer, HumanCustomer):
+                human_customers.append(customer)
+        return Clientbase(human_customers)

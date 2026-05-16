@@ -6,8 +6,8 @@ class Printable(ABC):
     def to_string(self):
         pass
 
-class Deliverable(ABC):
+class Delivery_avaliable(ABC):
     @abstractmethod
-    def delivery_price_calculator(self):
+    def calculate_delivery_price(self):
         pass
 

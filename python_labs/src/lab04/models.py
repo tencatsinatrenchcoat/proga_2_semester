@@ -1,9 +1,9 @@
 from base import Customer
 from validators import _validate_pos_values, _validate_delivery, _validate_phone
-from interfaces import Deliverable
+from interfaces import Delivery_avaliable
 
 
-class CorporateCustomer(Customer, Deliverable):
+class CorporateCustomer(Customer, Delivery_avaliable):
     def __init__(self, name, email, wallet_balance, order_limit: int, warehouse_distance: (int, float), bonus_points = 0, banned = False):
         _validate_pos_values(order_limit)
         _validate_pos_values(warehouse_distance)
@@ -41,7 +41,7 @@ class CorporateCustomer(Customer, Deliverable):
             f"Лимит на сумму заказа: {self._item_order_limit} $ \n"
             f"Расстояние от магазина до склада: {self._warehouse_distance} км")
 
-    def delivery_price_calculator(self): # 4
+    def calculate_delivery_price(self): # 4
         if self._warehouse_distance <= 200:
             price = self._warehouse_distance * 1.5 * 75
         else: 
@@ -57,16 +57,16 @@ class CorporateCustomer(Customer, Deliverable):
             _validate_pos_values(use_points)
 
             if self._wallet_balance >= price and self._order_limit >= price:
-                self._wallet_balance -= price + delivery_price_calculator(self)
+                self._wallet_balance -= price + calculate_delivery_price(self)
             else:
                 print("недостаточно средств или вы не можете сделать заказ на такую сумму")
 
     def display(self):
-        delivery = self._delivery_price_calculator()
+        delivery = self._calculate_delivery_price()
         return f"Ваш баланс {self._wallet_balance}, вы можете сделать заказ на сумму {self._order_limit}, доставка будет стоить {delivery}"
 
 
-class HumanCustomer(Customer, Deliverable):
+class HumanCustomer(Customer, Delivery_avaliable):
     def __init__(self, name, email, wallet_balance, bonus_points, phone_number: str, delivery_method: str, banned = False):
         _validate_phone(phone_number)
         _validate_delivery(delivery_method)
@@ -104,7 +104,7 @@ class HumanCustomer(Customer, Deliverable):
     def pickup_code_generator(phone_number):
         return phone_number[:4]
             
-    def delivery_price_calculator(self): #4
+    def calculate_delivery_price(self): #4
         if self._delivery_method == "самовывоз":
             price = 0
         if self._delivery_method == "пункт выдачи":
@@ -121,12 +121,12 @@ class HumanCustomer(Customer, Deliverable):
             _validate_pos_values(use_points)
 
             if self._wallet_balance + use_points >= price and self._bonus_points >= use_points :
-                self._wallet_balance -= price - use_points + delivery_price_calculator(self)
+                self._wallet_balance -= price - use_points + calculate_delivery_price(self)
                 self._bonus_points -= use_points
                 self._bonus_points += price * 0.05 
             else:
                 print("недостаточно средств")
 
     def display(self):
-        delivery = self._delivery_price_calculator()
+        delivery = self._calculate_delivery_price()
         return (f"Ваш баланс {self._wallet_balance} $, ваши баллы {self._bonus_points}, доставка бдует стоить {delivery} $")

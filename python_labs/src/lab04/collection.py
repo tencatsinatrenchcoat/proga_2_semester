@@ -1,5 +1,6 @@
 from base import Customer
 from models import HumanCustomer, CorporateCustomer
+from 
 
 class Clientbase:
 #3  
@@ -84,7 +85,7 @@ def get_human_customer(self):
             raise TypeError("! тип клиента должен наследоваться от Customer")
         if not isinstance(customer_type, type):
             raise TypeError("тип клиента должен быть классом")
-        return lambda customer: isinstance(item, customer_type)
+        return lambda customer: isinstance(customer, customer_type)
 
 
     def get_only_human(self):
@@ -94,4 +95,5 @@ def get_human_customer(self):
     def get_only_corpo(self):
         return self.get_only_type(CoprorateCustomer)
 
-    
+    def get_delivery_avaliable(self, customer):
+        return lambda item: isinstance(customer, Delivery_avaliable)
