@@ -2,10 +2,10 @@ from validators import _validate_bonus, _validate_email, _validate_pos_values, _
 class Customer:
     shop_name = "PC Parts Shop"
     def __init__(self, name: str, email: str, wallet_balance: float, bonus_points: int):
-        _validate_name(self, name)
-        _validate_email(self, email)
-        _validate_wallet(self, wallet_balance)
-        _validate_bonus(self, bonus_points)
+        _validate_name(name)
+        _validate_email(email)
+        _validate_wallet(wallet_balance)
+        _validate_bonus(bonus_points)
         self._name = name
         self._email = email
         self._wallet_balance = wallet_balance
@@ -77,20 +77,20 @@ class Customer:
 
     def balance_increase(self, amount):
         if not self._banned:
-            _validate_pos_values(self, amount)
+            _validate_pos_values(amount)
             self._wallet_balance += amount
         else:
             print("баланс данного аккаунта нельзя пополнить")
 
-        _validate_pos_values(self, amount)
+        _validate_pos_values(amount)
         self._wallet_balance += amount
 
     def make_purchase(self, price, use_points):
         if self._banned:
             print("с данного аккаунта нельзя совершать покупки")
         else:
-            _validate_pos_values(self, price)
-            _validate_pos_values(self, use_points)
+            _validate_pos_values(price)
+            _validate_pos_values(use_points)
 
             if self._wallet_balance + use_points >= price and self._bonus_points >= use_points :
                 self._wallet_balance -= price - use_points

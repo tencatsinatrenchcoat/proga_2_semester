@@ -5,7 +5,7 @@ from interfaces import Delivery_avaliable, Printable
 class Clientbase:
 #3  
     def __init__(self, items = None): 
-        self._items = [] 
+        self._items: list[Customer] = [] 
         if items is not None:
             for item in items:
                 self.add(item)
@@ -97,3 +97,4 @@ class Clientbase:
     def sort_by_delivery_price(self):
         customers = self.get_delivery_avaliable().get_all()
         return sorted(customers, key = lambda customer: customer.calculate_delivery_price())
+

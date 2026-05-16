@@ -38,7 +38,7 @@ class CorporateCustomer(Customer, Delivery_avaliable):
             f"Email: {self._email} \n"
             f"Баланс: {self._wallet_balance} $ \n"
             f"Бонусные баллы: {self._bonus_points} \n"
-            f"Лимит на сумму заказа: {self._item_order_limit} $ \n"
+            f"Лимит на сумму заказа: {self._order_limit} $ \n"
             f"Расстояние от магазина до склада: {self._warehouse_distance} км")
 
     def calculate_delivery_price(self): # 4
@@ -61,7 +61,7 @@ class CorporateCustomer(Customer, Delivery_avaliable):
                 print("недостаточно средств или вы не можете сделать заказ на такую сумму")
 
     def display(self):
-        delivery = self._calculate_delivery_price()
+        delivery = self.calculate_delivery_price()
         return f"Ваш баланс {self._wallet_balance}, вы можете сделать заказ на сумму {self._order_limit}, доставка будет стоить {delivery}"
 
 
