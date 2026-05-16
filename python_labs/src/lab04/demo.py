@@ -1,3 +1,6 @@
+from collection import Clientbase
+from models import CorporateCustomer, HumanCustomer
+
 
 def print_all_printable(items: list[Printable]):
     for item in items:
@@ -19,3 +22,7 @@ hc1 = HumanCustomer("Ada Lovelace", "ada@mail.uk", 100000, 100, "+70000000000", 
 hc2 = HumanCustomer("John Von Neumann", "john@mail.usa", 20000, 250, "+71111111111", "курьер")
 hc3 = HumanCustomer("Steve Jobs", "steve@mail.usa", 35000, 666, "+72222222222", "пункт выдачи")
 
+items = [cc1, cc2, cc3]
+cl = Clientbase(items)
+
+print(cl.sort_by_delivery_price())

@@ -1,5 +1,6 @@
 from base import Customer
 from models import HumanCustomer, CorporateCustomer
+from interfaces import Delivery_avaliable
 
 class Clientbase:
 #3  
@@ -83,15 +84,16 @@ class Clientbase:
         printable_customers = []
         for customer in self._items:
             if isinstance(customer, Printable):
-                printable_customers.append()
+                printable_customers.append(customer)
         return Clientbase(printable_customers)
 
     def get_delivery_avaliable(self):
         avaliable_customers = []
         for customer in self._items:
             if isinstance(customer, Delivery_avaliable):
-                avaliable_customers.append()
+                avaliable_customers.append(customer)
         return Clientbase(avaliable_customers)
 
     def sort_by_delivery_price(self):
-        return self._get_delivery_avaliable().get_all().sort(key = lambda customer: customer.calculate_delivery_price())
+        customers = self.get_delivery_avaliable().get_all()
+        return sorted(customers, key = lambda customer: customer.calculate_delivery_price())
