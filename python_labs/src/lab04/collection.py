@@ -79,15 +79,19 @@ class Clientbase:
 
 # lab 04
 
-    def get_only_type(self, customer_type):
-        pass
+    def get_printable(self):
+        printable_customers = []
+        for customer in self._items:
+            if isinstance(customer, Printable):
+                printable_customers.append()
+        return Clientbase(printable_customers)
 
-    def get_only_human(self):
-        pass
+    def get_delivery_avaliable(self):
+        avaliable_customers = []
+        for customer in self._items:
+            if isinstance(customer, Delivery_avaliable):
+                avaliable_customers.append()
+        return Clientbase(avaliable_customers)
 
-
-    def get_only_corpo(self):
-        pass
-
-    def get_delivery_avaliable(self, customer):
+    def sort_by_delivery_price(self):
         pass
