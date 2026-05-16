@@ -7,8 +7,3 @@ def print_all_deliverable(items: list[Deliverable]):
     for item in items:
         print(item.calculate_delivery_price())
 
-
-print("Printable:", isinstance(obj, Printable))
-print("Deliverable:", isinstance(obj, Deliverable))
-
-
