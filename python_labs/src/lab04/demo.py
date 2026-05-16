@@ -1,5 +1,6 @@
 from collection import Clientbase
 from models import CorporateCustomer, HumanCustomer
+from interfaces import Printable, Delivery_avaliable
 
 
 def print_all_printable(items: list[Printable]):

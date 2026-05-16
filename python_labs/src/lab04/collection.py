@@ -1,6 +1,6 @@
 from base import Customer
 from models import HumanCustomer, CorporateCustomer
-from interfaces import Delivery_avaliable
+from interfaces import Delivery_avaliable, Printable
 
 class Clientbase:
 #3  

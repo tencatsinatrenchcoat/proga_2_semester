@@ -4,7 +4,7 @@ from interfaces import Delivery_avaliable
 
 
 class CorporateCustomer(Customer, Delivery_avaliable):
-    def __init__(self, name, email, wallet_balance, order_limit: int, warehouse_distance: (int, float), bonus_points = 0, banned = False):
+    def __init__(self, name, email, wallet_balance, order_limit: int, warehouse_distance: {int, float}, bonus_points = 0, banned = False):
         _validate_pos_values(order_limit)
         _validate_pos_values(warehouse_distance)
         super().__init__(name, email, wallet_balance, bonus_points)
@@ -29,10 +29,10 @@ class CorporateCustomer(Customer, Delivery_avaliable):
         _validate_pos_values(value)
         self._warehouse_distance = value
 
-    def ability_to_order(desired_purchase):
+    def ability_to_order(self, desired_purchase):
         return desired_purchase <= self._order_limit
 
-    def __str__():
+    def __str__(self):
         return (f"Профиль клиента. \n"
             f"Имя: {self._name} \n"
             f"Email: {self._email} \n"
@@ -54,10 +54,9 @@ class CorporateCustomer(Customer, Delivery_avaliable):
             print("с данного аккаунта нельзя совершать покупки")
         else:
             _validate_pos_values(price)
-            _validate_pos_values(use_points)
 
             if self._wallet_balance >= price and self._order_limit >= price:
-                self._wallet_balance -= price + calculate_delivery_price(self)
+                self._wallet_balance -= price + self.calculate_delivery_price()
             else:
                 print("недостаточно средств или вы не можете сделать заказ на такую сумму")
 
@@ -92,7 +91,7 @@ class HumanCustomer(Customer, Delivery_avaliable):
         _validate_delivery(value)
         self._delivery_method = value
 
-    def __str__():
+    def __str__(self):
         return (f"Профиль клиента. \n"
             f"Имя: {self._name} \n"
             f"Email: {self._email} \n"
@@ -121,7 +120,7 @@ class HumanCustomer(Customer, Delivery_avaliable):
             _validate_pos_values(use_points)
 
             if self._wallet_balance + use_points >= price and self._bonus_points >= use_points :
-                self._wallet_balance -= price - use_points + calculate_delivery_price(self)
+                self._wallet_balance -= price - use_points + self.calculate_delivery_price()
                 self._bonus_points -= use_points
                 self._bonus_points += price * 0.05 
             else:
