@@ -1,10 +1,11 @@
 from base import Customer
 from models import HumanCustomer, CorporateCustomer
+from interfaces import Delivery_avaliable, Printable
 
 class Clientbase:
 #3  
     def __init__(self, items = None): 
-        self._items = [] 
+        self._items: list[Customer] = [] 
         if items is not None:
             for item in items:
                 self.add(item)
@@ -68,11 +69,32 @@ class Clientbase:
         for customer in self._items:
             if isinstance(customer, CorporateCustomer):
                 corpo_customers.append(customer)
-        return corpo_customers
+        return Clientbase(corpo_customers)
 
     def get_human_customer(self):
         human_customers = []
         for customer in self._items:
             if isinstance(customer, HumanCustomer):
                 human_customers.append(customer)
-        return human_customers
+        return Clientbase(human_customers)
+
+# lab 04
+
+    def get_printable(self):
+        printable_customers = []
+        for customer in self._items:
+            if isinstance(customer, Printable):
+                printable_customers.append(customer)
+        return Clientbase(printable_customers)
+
+    def get_delivery_avaliable(self):
+        avaliable_customers = []
+        for customer in self._items:
+            if isinstance(customer, Delivery_avaliable):
+                avaliable_customers.append(customer)
+        return Clientbase(avaliable_customers)
+
+    def sort_by_delivery_price(self):
+        customers = self.get_delivery_avaliable().get_all()
+        return sorted(customers, key = lambda customer: customer.calculate_delivery_price()) # type: ignore
+    

@@ -23,8 +23,24 @@ hc1 = HumanCustomer("Ada Lovelace", "ada@mail.uk", 100000, 100, "+70000000000", 
 hc2 = HumanCustomer("John Von Neumann", "john@mail.usa", 20000, 250, "+71111111111", "курьер")
 hc3 = HumanCustomer("Steve Jobs", "steve@mail.usa", 35000, 666, "+72222222222", "пункт выдачи")
 
-items = [cc1, cc2, cc3]
+items = [cc1, cc2, cc3, hc1, hc2, hc3]
+
+# единый список объектов разных типов
+# работа через интерфейсы
+# фильтрация коллекции по интерфейсу
+# минимум 3 сценария
+
 cl = Clientbase(items)
 
 print(cl.sort_by_delivery_price())
 print(cc1.to_string())
+ 
+def scenario1():
+    pass
+
+def scenario2():
+    pass
+
+def scenario3():
+    pass
+

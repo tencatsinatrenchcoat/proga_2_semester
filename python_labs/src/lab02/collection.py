@@ -56,7 +56,7 @@ class Clientbase:
     def get_banned(self):
         banned_collection = []
         for customer in self._items:
-            if customer.banned:
+            if customer._banned:
                 banned_collection.append(customer)
         return Clientbase(banned_collection)
 

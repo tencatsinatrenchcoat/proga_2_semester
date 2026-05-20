@@ -1,7 +1,7 @@
 from validators import _validate_bonus, _validate_email, _validate_pos_values, _validate_wallet, _validate_name
 class Customer:
     shop_name = "PC Parts Shop"
-    def __init__(self, name: str, email: str, wallet_balance: float, bonus_points: int):
+    def __init__(self, name: str, email: str, wallet_balance: float, bonus_points: int, banned = False):
         _validate_name(name)
         _validate_email(email)
         _validate_wallet(wallet_balance)
@@ -10,8 +10,7 @@ class Customer:
         self._email = email
         self._wallet_balance = wallet_balance
         self._bonus_points = bonus_points
-
-        self._banned = False #state
+        self._banned = banned # state
 
 #properties
 
@@ -30,10 +29,6 @@ class Customer:
     @property
     def bonus_points(self):
         return self._bonus_points
-
-    @property
-    def banned(self):
-        return self._banned
 
 #setters
 

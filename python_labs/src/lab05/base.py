@@ -4,7 +4,7 @@ from interfaces import Printable
 
 class Customer(Printable):
     shop_name = "PC Parts Shop"
-    def __init__(self, name: str, email: str, wallet_balance: float, bonus_points: int, banned = False):
+    def __init__(self, name: str, email: str, wallet_balance: float, bonus_points: int):
         _validate_name(name)
         _validate_email(email)
         _validate_wallet(wallet_balance)
@@ -14,7 +14,7 @@ class Customer(Printable):
         self._wallet_balance = wallet_balance
         self._bonus_points = bonus_points
 
-        self._banned = banned
+        self._banned = False #state
 
 #properties
 

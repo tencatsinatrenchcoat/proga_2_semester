@@ -46,24 +46,24 @@ class CorporateCustomer(Customer, Delivery_avaliable):
             price = self._warehouse_distance * 1.5 * 75
         else: 
             price = self._warehouse_distance * 1.5 * 150
-        return price
+        return f"Стоимость доставки {price} $"
 
 
     def make_purchase(self, price):
         if self._banned:
             print("с данного аккаунта нельзя совершать покупки")
-        if not self.ability_to_order(price):
-            print("вы не можете сделать заказ на такую сумму")
         else:
             _validate_pos_values(price)
+
             if self._wallet_balance >= price and self._order_limit >= price:
                 self._wallet_balance -= price + self.calculate_delivery_price()
             else:
-                print("недостаточно средств")
+                print("недостаточно средств или вы не можете сделать заказ на такую сумму")
 
     def display(self):
         delivery = self.calculate_delivery_price()
         return f"Ваш баланс {self._wallet_balance}, вы можете сделать заказ на сумму {self._order_limit}, доставка будет стоить {delivery}"
+
 
 class HumanCustomer(Customer, Delivery_avaliable):
     def __init__(self, name, email, wallet_balance, bonus_points, phone_number: str, delivery_method: str, banned = False):
@@ -101,7 +101,7 @@ class HumanCustomer(Customer, Delivery_avaliable):
             f"Способ доставки: {self._delivery_method}")
 
     def pickup_code_generator(self):
-        return self._phone_number[-4:]
+        return self._phone_number[4:]
             
     def calculate_delivery_price(self): #4
         if self._delivery_method == "самовывоз":
@@ -110,7 +110,7 @@ class HumanCustomer(Customer, Delivery_avaliable):
             price = 10
         if self._delivery_method == "курьер":
             price = 20
-        return price
+        return f"Ваша стоимость доставки {price} $"
 
     def make_purchase(self, price, use_points):
         if self._banned:
@@ -128,4 +128,4 @@ class HumanCustomer(Customer, Delivery_avaliable):
 
     def display(self):
         delivery = self.calculate_delivery_price()
-        return (f"Ваш баланс {self._wallet_balance}, ваши баллы {self._bonus_points}, доставка бдует стоить {delivery}")
+        return (f"Ваш баланс {self._wallet_balance} $, ваши баллы {self._bonus_points}, доставка бдует стоить {delivery} $")
