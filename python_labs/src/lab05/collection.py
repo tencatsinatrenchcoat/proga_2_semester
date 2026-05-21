@@ -97,4 +97,13 @@ class Clientbase:
     def sort_by_delivery_price(self):
         customers = self.get_delivery_avaliable().get_all()
         return sorted(customers, key = lambda customer: customer.calculate_delivery_price()) # type: ignore
+
+# lab 05
+
+    def sort(self, key):
+            return sorted(self._items, key=key)
+
+    def filter(self, predicate):
+        return list(filter(predicate, self._items))
+
     
