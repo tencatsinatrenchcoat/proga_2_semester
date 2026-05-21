@@ -2,7 +2,6 @@ from collection import Clientbase
 from models import CorporateCustomer, HumanCustomer
 from interfaces import Printable, Delivery_avaliable
 
-
 def print_all_printable(items: list[Printable]):
     for item in items:
         if not isinstance(item, Printable):
@@ -13,34 +12,41 @@ def print_all_delivery_avaliable(items: list[Delivery_avaliable]):
     for item in items:
         if not isinstance(item, Delivery_avaliable):
             raise TypeError("объект не реализует интерфейс")
-        print(item.calculate_delivery_price())
+        print(item._name, item.calculate_delivery_price())  # type: ignore
 
-cc1 = CorporateCustomer("x5 group", "x5@mail.ru", 4, 100000, 15)
-cc2 = CorporateCustomer("Samsung Inc.", "samsung@mail.sk", 999956799, 500000, 660)
-cc3 = CorporateCustomer("Apple Inc.", "apple@mail.usa", 999999999, 100000000, 2150)
 
-hc1 = HumanCustomer("Ada Lovelace", "ada@mail.uk", 100000, 100, "+70000000000", "самовывоз")
-hc2 = HumanCustomer("John Von Neumann", "john@mail.usa", 20000, 250, "+71111111111", "курьер")
-hc3 = HumanCustomer("Steve Jobs", "steve@mail.usa", 35000, 666, "+72222222222", "пункт выдачи")
+cc = CorporateCustomer("Samsung Inc.", "samsung@mail.sk", 999956799, 500000, 156)
 
-items = [cc1, cc2, cc3, hc1, hc2, hc3]
+
+hc = HumanCustomer("Ada Lovelace", "ada@mail.uk", 100000, 100, "+70000000000", "самовывоз")
+
+
+
+items = [ cc, hc]
 
 # единый список объектов разных типов
 # работа через интерфейсы
 # фильтрация коллекции по интерфейсу
 # минимум 3 сценария
+def sc1():
+    cl = Clientbase(items)
+    print(cl.get_all())
 
-cl = Clientbase(items)
+    print_all_printable(items)
 
-print(cl.sort_by_delivery_price())
-print(cc1.to_string())
- 
-def scenario1():
+    print_all_delivery_avaliable(items)
+
+def sc2():
+
+    print("Printable:", isinstance(hc, Printable))
+    print("Payable:", isinstance(hc, Delivery_avaliable))
+
+def sc3(): 
+    cl = Clientbase(items)
+    print(cl.sort_by_delivery_price())
     pass
 
-def scenario2():
-    pass
 
-def scenario3():
-    pass
-
+sc1()
+sc2()
+sc3()
